@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h2>Employee Details</h2>
+
+  <div *ngIf="employee" class="card mt-3">
+    <div class="card-body">
+      <p><strong>ID:</strong> {{ employee.id }}</p>
+
+      <p><strong>Name:</strong> {{ employee.name }}</p>
+
+      <p><strong>Email:</strong> {{ employee.email }}</p>
+
+      <p><strong>Department:</strong> {{ employee.department }}</p>
+
+      <p><strong>Salary:</strong> {{ employee.salary }}</p>
+    </div>
+  </div>
+</div>

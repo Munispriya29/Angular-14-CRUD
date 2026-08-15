@@ -21,6 +21,11 @@ export const routes: Routes = [
         path: "user-application",
         loadChildren: () =>
           import("./module/user/user.module").then(m => m.UserModule)
+      },
+      {
+        path: "employee",
+        loadChildren: () =>
+          import("./module/employee/employee.module").then(m => m.EmployeeModule)
       }
 /*
        { 

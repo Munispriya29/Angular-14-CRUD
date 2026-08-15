@@ -1,0 +1,92 @@
+<!-- 
+<div class="container mt-4">
+  <h2>Employee List</h2>
+
+  <table class="table table-bordered table-striped">
+  
+        <tbody>
+                <tr *ngFor="let emp of employees">
+  <td>{{ emp.id }}</td>
+  <td>{{ emp.name }}</td>
+  <td>{{ emp.email }}</td>
+  <td>{{ emp.department }}</td>
+  <td>{{ emp.salary }}</td>
+    <td>{{ emp.action }}</td>
+  <td>
+    <button class="btn btn-info btn-sm">View</button>
+    <button class="btn btn-warning btn-sm">Edit</button>
+    <button class="btn btn-danger btn-sm">Delete</button>
+  </td>
+</tr>
+        </tbody>
+
+  </table>
+</div>
+ -->
+
+<div class="container mt-4">
+  <h2>Employee List</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.salary }}</td>
+        <!-- <td>
+          <button class="btn btn-info btn-sm">View</button>
+          <button class="btn btn-warning btn-sm">Edit</button>
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </td> -->
+
+        <!-- <td>
+  <button class="btn btn-info btn-sm">View</button>
+
+  <button
+    class="btn btn-warning btn-sm"
+    [routerLink]="['/employee/edit', emp.id]">
+    Edit
+  </button>
+
+  <button class="btn btn-danger btn-sm">Delete</button>
+</td> -->
+
+        <td>
+          <button
+            class="btn btn-info btn-sm"
+            [routerLink]="['/employee/view', emp.id]"
+          >
+            View
+          </button>
+
+          <button
+            class="btn btn-warning btn-sm"
+            [routerLink]="['/employee/edit', emp.id]"
+          >
+            Edit
+          </button>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteEmployee(emp.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

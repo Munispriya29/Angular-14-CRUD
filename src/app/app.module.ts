@@ -1,40 +1,45 @@
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // import { ToastrModule } from 'ngx-toastr';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 // @ts-ignore TS6133
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-// import { AngularSlickgridModule } from 'angular-slickgrid'; 
+import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
+import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
+// import { AngularSlickgridModule } from 'angular-slickgrid';
 // import { GridContentComponent } from './module/grid/grid-content/grid-content.component';
-
 
 // @ts-ignore TS6133
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
+  suppressScrollX: true,
 };
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
 // Import containers
-import { DefaultLayoutComponent } from './containers';
+import { DefaultLayoutComponent } from "./containers";
 
 const APP_CONTAINERS = [DefaultLayoutComponent];
 
-import { AppAsideModule, AppBreadcrumbModule, AppFooterModule, AppHeaderModule, AppSidebarModule } from '@coreui/angular';
+import {
+  AppAsideModule,
+  AppBreadcrumbModule,
+  AppFooterModule,
+  AppHeaderModule,
+  AppSidebarModule,
+} from "@coreui/angular";
 
 // Import routing module
-import { AppRoutingModule } from './app.routing';
+import { AppRoutingModule } from "./app.routing";
 
 // Import 3rd party components
-import { ChartsModule } from 'ng2-charts';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from "ng2-charts";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { TabsModule } from "ngx-bootstrap/tabs";
 /*
 import { ReactiveFormsModule } from '@angular/forms';
 import { GridModule } from './module/grid/grid.module';
@@ -46,9 +51,7 @@ import { SaleModule } from './module/sale/sale.module';
 import { OrderModule } from './module/order/order.module';
 */
 
-
 // import { AddComponent } from './grid-content/add/add.component';
-
 
 @NgModule({
   imports: [
@@ -64,7 +67,7 @@ import { OrderModule } from './module/order/order.module';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-/*
+    /*
     ReactiveFormsModule,
     GridModule,
     CouponModule,
@@ -75,21 +78,20 @@ import { OrderModule } from './module/order/order.module';
     SaleModule,
     OrderModule,
 */
-    
-    
+
     // AngularSlickgridModule.forRoot(),
-   
 
     HttpClientModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
   ],
-  declarations: [AppComponent, ...APP_CONTAINERS, ],
+  declarations: [AppComponent, ...APP_CONTAINERS],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
-    }
+      useClass: HashLocationStrategy,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
+

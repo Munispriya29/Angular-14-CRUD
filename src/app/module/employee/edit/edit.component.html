@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <h2>Edit Employee</h2>
+
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label>Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+    </div>
+
+    <div class="mb-3">
+      <label>Department</label>
+      <input type="text" class="form-control" formControlName="department" />
+    </div>
+
+    <div class="mb-3">
+      <label>Salary</label>
+      <input type="text" class="form-control" formControlName="salary" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Update
+    </button>
+  </form>
+</div>

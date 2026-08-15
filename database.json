@@ -1,0 +1,25 @@
+{
+  "persons": [
+    {
+      "name": "test",
+      "email": "test@gmail.com",
+      "department": "Testing",
+      "salary": 30000,
+      "id": 2
+    },
+    {
+      "name": "Ram",
+      "email": "ram@gmail.com",
+      "department": "HR",
+      "salary": 55000,
+      "id": 3
+    },
+    {
+      "name": "Harsha",
+      "email": "harsha@gmail.com",
+      "department": "Trainer",
+      "salary": 34000,
+      "id": 4
+    }
+  ]
+}
