@@ -1,0 +1,270 @@
+<div class="container-fluid py-4 px-md-4 dashboard-wrapper">
+  <!-- Success Notification Alert -->
+  <div
+    *ngIf="deleteSuccessMessage"
+    class="alert alert-success alert-dismissible fade show shadow-sm border-0 d-flex align-items-center mb-4"
+    role="alert"
+  >
+    <i class="bi bi-check-circle-fill fs-5 me-2"></i>
+    <div class="fw-bold">{{ deleteSuccessMessage }}</div>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="deleteSuccessMessage = ''"
+    ></button>
+  </div>
+
+  <!-- 1. Employee Management Action Banner Card -->
+  <div class="card border rounded-3 shadow-sm bg-white p-3 mb-4">
+    <div
+      class="d-flex justify-content-between align-items-center flex-wrap gap-2"
+    >
+      <div class="d-flex align-items-center">
+        <div
+          class="bg-info text-white p-2 rounded-3 me-3 d-flex align-items-center justify-content-center"
+          style="width: 45px; height: 45px;"
+        >
+          <i class="bi bi-person-badge fs-4"></i>
+        </div>
+        <div>
+          <h5 class="fw-bold mb-0 text-dark">Employee Management</h5>
+          <small class="text-secondary fw-semibold"
+            >Complete list of registered personnel</small
+          >
+        </div>
+      </div>
+      <div>
+        <a
+          routerLink="/employee/add"
+          class="btn btn-info text-white px-3 py-2 fw-bold rounded-3 shadow-sm"
+        >
+          <i class="bi bi-person-plus-fill me-1"></i> Add Employee
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Main Content Card -->
+  <div class="card border rounded-3 shadow-sm">
+    <!-- Table / Card Header Controls -->
+    <div
+      class="card-header bg-white py-3 px-3 border-bottom position-relative d-flex justify-content-between align-items-center flex-wrap gap-2"
+    >
+      <div class="d-flex align-items-center">
+        <!-- Hamburger Icon Button for Quick Stats -->
+        <button
+          type="button"
+          (click)="toggleDropdown()"
+          class="btn btn-light border-0 p-1 me-2 rounded-2 d-flex align-items-center justify-content-center shadow-none"
+          style="cursor: pointer;"
+        >
+          <i class="bi bi-list fs-3 text-dark fw-bold"></i>
+        </button>
+
+        <span class="fw-bold fs-6 text-dark">All Employees Directory</span>
+
+        <!-- Dropdown Menu -->
+        <div
+          *ngIf="isDropdownOpen"
+          class="position-absolute bg-white rounded-3 shadow-lg border p-3"
+          style="top: 55px; left: 15px; z-index: 1050; min-width: 300px;"
+        >
+          <div
+            class="d-flex align-items-center p-2 mb-2 rounded-3 bg-light border"
+          >
+            <div
+              class="bg-primary-subtle text-primary p-2 rounded-circle me-3 d-flex align-items-center justify-content-center"
+              style="width: 40px; height: 40px;"
+            >
+              <i class="bi bi-people-fill fs-5"></i>
+            </div>
+            <div>
+              <div class="text-secondary small fw-medium">Total Employees</div>
+              <h6 class="fw-bold mb-0 text-dark">
+                {{ employees?.length || 0 }}
+              </h6>
+            </div>
+          </div>
+
+          <div
+            class="d-flex align-items-center p-2 mb-2 rounded-3 bg-light border"
+          >
+            <div
+              class="bg-success-subtle text-success p-2 rounded-circle me-3 d-flex align-items-center justify-content-center"
+              style="width: 40px; height: 40px;"
+            >
+              <i class="bi bi-building-check fs-5"></i>
+            </div>
+            <div>
+              <div class="text-secondary small fw-medium">
+                Active Departments
+              </div>
+              <h6 class="fw-bold mb-0 text-dark">
+                {{ getActiveDepartmentsCount() }}
+              </h6>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center p-2 rounded-3 bg-light border">
+            <div
+              class="bg-info-subtle text-info p-2 rounded-circle me-3 d-flex align-items-center justify-content-center"
+              style="width: 40px; height: 40px;"
+            >
+              <i class="bi bi-shield-lock-fill fs-5"></i>
+            </div>
+            <div>
+              <div class="text-secondary small fw-medium">System Status</div>
+              <h6 class="fw-bold mb-0 text-dark">Operational</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View Switcher (Table vs Card Mode) -->
+      <div class="btn-group" role="group">
+        <button
+          type="button"
+          (click)="setViewMode('table')"
+          [class.active]="viewMode === 'table'"
+          class="btn btn-outline-secondary btn-sm fw-bold px-3 d-flex align-items-center gap-1"
+        >
+          <i class="bi bi-table"></i> Table
+        </button>
+        <button
+          type="button"
+          (click)="setViewMode('card')"
+          [class.active]="viewMode === 'card'"
+          class="btn btn-outline-secondary btn-sm fw-bold px-3 d-flex align-items-center gap-1"
+        >
+          <i class="bi bi-grid-3x3-gap-fill"></i> Square Cards
+        </button>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <!-- View 1: Standard Table View -->
+      <div *ngIf="viewMode === 'table'" class="table-responsive">
+        <table class="table align-middle mb-4">
+          <thead style="border-bottom: 2px solid #000;">
+            <tr class="text-dark">
+              <th scope="col" class="py-2">#ID</th>
+              <th scope="col" class="py-2">Username / Name</th>
+              <th scope="col" class="py-2">Email Address</th>
+              <th scope="col" class="py-2">Department</th>
+              <th scope="col" class="py-2">Salary</th>
+              <th scope="col" class="py-2 text-center" style="width: 250px;">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-dark">
+            <tr
+              *ngFor="let emp of employees"
+              style="border-bottom: 1px solid #dee2e6;"
+            >
+              <td class="py-3 fw-bold">#{{ emp.id }}</td>
+              <td class="py-3 fw-semibold">{{ emp.name }}</td>
+              <td class="py-3">{{ emp.email }}</td>
+              <td class="py-3">{{ emp.department || emp.dept || "-" }}</td>
+              <td class="py-3 fw-bold">₹{{ emp.salary | number }}</td>
+              <td class="py-3 text-center">
+                <div class="d-inline-flex gap-1" role="group">
+                  <a
+                    [routerLink]="['/employee/view', emp.id]"
+                    class="btn btn-info btn-sm text-white px-2 fw-medium shadow-sm"
+                  >
+                    <i class="bi bi-eye-fill me-1"></i>View
+                  </a>
+                  <a
+                    [routerLink]="['/employee/edit', emp.id]"
+                    class="btn btn-warning btn-sm text-dark px-2 fw-medium shadow-sm"
+                  >
+                    <i class="bi bi-pencil-fill me-1"></i>Edit
+                  </a>
+                  <button
+                    (click)="deleteEmployee(emp.id)"
+                    type="button"
+                    class="btn btn-danger btn-sm px-2 fw-medium shadow-sm"
+                  >
+                    <i class="bi bi-trash-fill me-1"></i>Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!employees || employees.length === 0">
+              <td colspan="6" class="text-center py-4 text-muted">
+                No employee records found.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- View 2: Square Card Grid View -->
+      <div *ngIf="viewMode === 'card'" class="row g-4 mb-4">
+        <div
+          *ngFor="let emp of employees"
+          class="col-12 col-sm-6 col-lg-4 col-xl-3"
+        >
+          <div
+            class="card h-100 border rounded-4 shadow-sm bg-white text-center p-3"
+          >
+            <div
+              class="bg-light text-primary rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2"
+              style="width: 55px; height: 55px;"
+            >
+              <i class="bi bi-person-fill fs-2"></i>
+            </div>
+
+            <h5 class="fw-bold text-dark mb-0">{{ emp.name }}</h5>
+            <small class="text-muted fw-semibold">#{{ emp.id }}</small>
+
+            <div class="my-2">
+              <span
+                class="badge bg-info text-dark px-3 py-1 fw-bold rounded-pill"
+              >
+                {{ emp.department || emp.dept || "Staff" }}
+              </span>
+            </div>
+
+            <p class="text-secondary small mb-1">{{ emp.email }}</p>
+            <h6 class="fw-bold text-success mb-3">
+              ₹{{ emp.salary | number }}
+            </h6>
+
+            <div
+              class="d-flex justify-content-center gap-1 mt-auto pt-2 border-top"
+            >
+              <a
+                [routerLink]="['/employee/view', emp.id]"
+                class="btn btn-outline-info btn-sm fw-bold"
+              >
+                <i class="bi bi-eye"></i> View
+              </a>
+              <a
+                [routerLink]="['/employee/edit', emp.id]"
+                class="btn btn-outline-warning btn-sm fw-bold"
+              >
+                <i class="bi bi-pencil"></i> Edit
+              </a>
+              <button
+                (click)="deleteEmployee(emp.id)"
+                type="button"
+                class="btn btn-outline-danger btn-sm fw-bold"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="!employees || employees.length === 0"
+          class="col-12 text-center py-5 text-muted"
+        >
+          No employee records found.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

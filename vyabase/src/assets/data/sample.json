@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "email": "siva@gmail.com",
+      "name": "Siva",
+      "mobile": "912341234",
+      "gender": "Male"
+    },
+    {
+      "email": "ashwin@gmail.com",
+      "name": "Ashwin",
+      "mobile": "912341234",
+      "gender": "Male"
+    },
+    {
+      "email": "arun@gmail.com",
+      "name": "Arun",
+      "mobile": "912341234",
+      "gender": "Male"
+    },
+    {
+      "email": "ramya@gmail.com",
+      "name": "Ramya",
+      "mobile": "912341234",
+      "gender": "Female"
+    },
+    {
+      "email": "a@gmail.com",
+      "name": "siva",
+      "mobile": "912341234",
+      "gender": "Male"
+    }
+  ]
+}
