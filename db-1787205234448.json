@@ -4,7 +4,7 @@
       "name": "priya",
       "email": "priya@gmail.com",
       "department": "Testing",
-      "salary": 40000,
+      "salary": 30000,
       "id": 1
     },
     {
@@ -20,6 +20,13 @@
       "department": "Trainer",
       "salary": 34000,
       "id": 3
+    },
+    {
+      "name": "abi",
+      "email": "abi@gmail.com",
+      "department": "IT",
+      "salary": 20000,
+      "id": 4
     }
   ]
 }

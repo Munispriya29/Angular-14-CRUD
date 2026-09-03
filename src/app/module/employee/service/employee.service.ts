@@ -24,7 +24,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root",
 })
 export class EmployeeService {
-  apiUrl = "http://localhost:3000/persons";
+  apiUrl = "https://6a99ab7d53c0481726b98862.mockapi.io/api/v1/:endpoint";
 
   constructor(private http: HttpClient) {}
 

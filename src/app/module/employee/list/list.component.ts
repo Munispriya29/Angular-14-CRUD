@@ -1,46 +1,3 @@
-/*
-import { Component, OnInit } from '@angular/core';
-@Component({
-  selector: "app-list",
-  templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
-})
-export class ListComponent implements OnInit {
-  employees = [
-    {
-      id: 1,
-      name: "Priya",
-      email: "priya@gmail.com",
-      department: "IT",
-    },
-    {
-      id: 2,
-      name: "Arun",
-      email: "arun@gmail.com",
-      department: "HR",
-      salary: 30000,
-    },
-    {
-      id: 3,
-      name: "Kaviya",
-      email: "kaviya@gmail.com",
-      department: "Finance",
-      salary: 40000,
-    },
-    {
-      id: 4,
-      name: "Rahul",
-      email: "rahul@gmail.com",
-      department: "Admin",
-      salary: 50000,
-    },
-  ];
-  constructor() {}
-
-  ngOnInit(): void {}
-}
-*/
-
 import { Component, OnInit } from "@angular/core";
 import { EmployeeService } from "../service/employee.service";
 
@@ -51,6 +8,9 @@ import { EmployeeService } from "../service/employee.service";
 })
 export class ListComponent implements OnInit {
   employees: any[] = [];
+  isDropdownOpen: boolean = false;
+  viewMode: "table" | "card" = "table"; // Toggle between table and square card view
+  deleteSuccessMessage: string = "";
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -58,14 +18,48 @@ export class ListComponent implements OnInit {
     this.getEmployees();
   }
 
-  getEmployees() {
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  setViewMode(mode: "table" | "card"): void {
+    this.viewMode = mode;
+  }
+
+  getEmployees(): void {
     this.employeeService.getEmployees().subscribe((data: any) => {
       this.employees = data;
     });
   }
-  deleteEmployee(id: number) {
-    this.employeeService.deleteEmployee(id).subscribe(() => {
-      this.getEmployees();
-    });
+
+  deleteEmployee(id: number): void {
+    const isConfirmed = confirm(
+      `Are you sure you want to delete employee record #${id}?`,
+    );
+    if (isConfirmed) {
+      this.employeeService.deleteEmployee(id).subscribe({
+        next: () => {
+          this.deleteSuccessMessage = `Employee #${id} was deleted successfully!`;
+          this.getEmployees();
+          setTimeout(() => {
+            this.deleteSuccessMessage = "";
+          }, 3500);
+        },
+        error: (err) => {
+          console.error("Error deleting record:", err);
+        },
+      });
+    }
+  }
+
+  getActiveDepartmentsCount(): number {
+    if (!this.employees || this.employees.length === 0) {
+      return 0;
+    }
+    const departments = this.employees
+      .map((emp) => emp.department || emp.dept)
+      .filter((dept) => dept && dept.trim() !== "");
+
+    return new Set(departments).size;
   }
 }

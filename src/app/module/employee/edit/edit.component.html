@@ -1,29 +1,216 @@
-<div class="container mt-4">
-  <h2>Edit Employee</h2>
-
-  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label>Name</label>
-      <input type="text" class="form-control" formControlName="name" />
+<div class="container-fluid py-4 px-md-4 dashboard-wrapper">  <!-- Top Action Header Banner -->
+  <div class="card border rounded-3 shadow-sm bg-white p-3 mb-4">
+    <div
+      class="d-flex justify-content-between align-items-center flex-wrap gap-2"
+    >
+      <div class="d-flex align-items-center">
+        <!-- Banner Icon -->
+        <div
+          class="bg-warning text-dark p-2 rounded-3 me-3 d-flex align-items-center justify-content-center shadow-sm"
+          style="width: 48px; height: 48px; min-width: 48px;"
+        >
+          <i class="bi bi-pencil-square fs-4 text-dark"></i>
+        </div>
+        <div>
+          <h4 class="fw-bold mb-0 text-dark">Edit Employee Details</h4>
+          <span class="text-secondary fw-semibold small"
+            >Modify information for Employee #{{ employeeId }}</span
+          >
+        </div>
+      </div>
+      <div>
+        <a
+          routerLink="/employee"
+          class="btn btn-outline-dark px-3 py-2 fw-bold rounded-3 shadow-sm d-inline-flex align-items-center gap-1"
+        >
+          <i class="bi bi-arrow-left fs-6"></i> Back to List
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div class="mb-3">
-      <label>Email</label>
-      <input type="email" class="form-control" formControlName="email" />
+  <!-- Form Card -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <div class="card border rounded-3 shadow-sm bg-white">
+        <!-- Sub Header -->
+        <div class="card-header bg-white py-3 px-4 border-bottom">
+          <div class="d-flex align-items-center text-dark">
+            <i class="bi bi-info-circle-fill text-warning fs-5 me-2"></i>
+            <span class="fw-bold fs-6 text-dark"
+              >Personal & Employment Details</span
+            >
+          </div>
+        </div>
+
+        <div class="card-body p-4">
+          <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row g-4">
+              <!-- Employee Name -->
+              <div class="col-12 col-md-6">
+                <label for="name" class="form-label fw-bold text-dark">
+                  Employee Name <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span
+                    class="input-group-text bg-light text-secondary border-end-0"
+                  >
+                    <i class="bi bi-person-fill fs-6"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="name"
+                    formControlName="name"
+                    class="form-control border-start-0 py-2 fw-medium text-dark"
+                    [ngClass]="{
+                      'is-invalid':
+                        (f.name.touched || isSubmitted) && f.name.errors
+                    }"
+                    placeholder="Enter Employee Name"
+                  />
+                </div>
+                <div
+                  *ngIf="(f.name.touched || isSubmitted) && f.name.errors"
+                  class="text-danger small fw-bold mt-1"
+                >
+                  <span *ngIf="f.name.errors['required']"
+                    >Employee Name is required.</span
+                  >
+                  <span *ngIf="f.name.errors['minlength']"
+                    >Name must be at least 3 characters.</span
+                  >
+                </div>
+              </div>
+
+              <!-- Email Address -->
+              <div class="col-12 col-md-6">
+                <label for="email" class="form-label fw-bold text-dark">
+                  Email Address <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span
+                    class="input-group-text bg-light text-secondary border-end-0"
+                  >
+                    <i class="bi bi-envelope-fill fs-6"></i>
+                  </span>
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="form-control border-start-0 py-2 fw-medium text-dark"
+                    [ngClass]="{
+                      'is-invalid':
+                        (f.email.touched || isSubmitted) && f.email.errors
+                    }"
+                    placeholder="Enter Email Address"
+                  />
+                </div>
+                <div
+                  *ngIf="(f.email.touched || isSubmitted) && f.email.errors"
+                  class="text-danger small fw-bold mt-1"
+                >
+                  <span *ngIf="f.email.errors['required']"
+                    >Email Address is required.</span
+                  >
+                  <span *ngIf="f.email.errors['email']"
+                    >Please enter a valid email format.</span
+                  >
+                </div>
+              </div>
+
+              <!-- Department -->
+              <div class="col-12 col-md-6">
+                <label for="department" class="form-label fw-bold text-dark">
+                  Department <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span
+                    class="input-group-text bg-light text-secondary border-end-0"
+                  >
+                    <i class="bi bi-building fs-6"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="department"
+                    formControlName="department"
+                    class="form-control border-start-0 py-2 fw-medium text-dark"
+                    [ngClass]="{
+                      'is-invalid':
+                        (f.department.touched || isSubmitted) &&
+                        f.department.errors
+                    }"
+                    placeholder="Enter Department"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    (f.department.touched || isSubmitted) && f.department.errors
+                  "
+                  class="text-danger small fw-bold mt-1"
+                >
+                  <span *ngIf="f.department.errors['required']"
+                    >Department is required.</span
+                  >
+                </div>
+              </div>
+
+              <!-- Salary -->
+              <div class="col-12 col-md-6">
+                <label for="salary" class="form-label fw-bold text-dark">
+                  Salary (₹) <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span
+                    class="input-group-text bg-light text-secondary border-end-0"
+                  >
+                    <i class="bi bi-currency-rupee fs-6"></i>
+                  </span>
+                  <input
+                    type="number"
+                    id="salary"
+                    formControlName="salary"
+                    class="form-control border-start-0 py-2 fw-medium text-dark"
+                    [ngClass]="{
+                      'is-invalid':
+                        (f.salary.touched || isSubmitted) && f.salary.errors
+                    }"
+                    placeholder="Enter Salary"
+                  />
+                </div>
+                <div
+                  *ngIf="(f.salary.touched || isSubmitted) && f.salary.errors"
+                  class="text-danger small fw-bold mt-1"
+                >
+                  <span *ngIf="f.salary.errors['required']"
+                    >Salary is required.</span
+                  >
+                  <span *ngIf="f.salary.errors['min']"
+                    >Salary must be greater than 0.</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div
+              class="d-flex justify-content-end align-items-center gap-3 mt-4 pt-3 border-top"
+            >
+              <a
+                routerLink="/employee"
+                class="btn btn-light border px-4 py-2 fw-bold text-dark rounded-3 shadow-sm"
+              >
+                Cancel
+              </a>
+              <button
+                type="submit"
+                class="btn btn-warning text-dark px-4 py-2 fw-bold rounded-3 shadow-sm d-inline-flex align-items-center gap-2"
+              >
+                <i class="bi bi-check-circle-fill fs-5"></i> Update Employee
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <div class="mb-3">
-      <label>Department</label>
-      <input type="text" class="form-control" formControlName="department" />
-    </div>
-
-    <div class="mb-3">
-      <label>Salary</label>
-      <input type="text" class="form-control" formControlName="salary" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-      Update
-    </button>
-  </form>
+  </div>
 </div>
