@@ -12,7 +12,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --sourceMap=true --common-chunk=false --vendor-chunk=false",
-    "build": "ng build --configuration production --commonChunk --vendorChunk --optimization --progress --aot=false --buildOptimizer=false --sourceMap=false",
+    "build": "ng build --configuration production",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint --type-check=true",
     "lint:fix": "ng lint --fix=true",
