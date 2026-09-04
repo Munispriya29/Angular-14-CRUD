@@ -4,5 +4,6 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: "https://6a99ab7d53c0481726b98862.mockapi.io/api/v1/persons",
 };
